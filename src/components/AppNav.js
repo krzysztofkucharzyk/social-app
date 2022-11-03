@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export function AppNav() {
+const AppNav = () => {
     return (
         <>
             <nav>
@@ -20,3 +20,5 @@ export function AppNav() {
         </>
     )
 }
+
+export default AppNav
