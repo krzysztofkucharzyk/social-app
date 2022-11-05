@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
+import './Home.css'
+import Post from '../components/Post';
+// import { FiHeart } from 'react-icons/fi';
 
 const Home = () => {
 
@@ -18,30 +21,15 @@ const Home = () => {
     getLatestPosts();
   }, [])
 
-  const getDate = (date) => {
-    return date.split(' ')[0]
-  }
-
   return (
     <section className='Home'>
-      <h2>Home</h2>
-
       <div className='postList'>
-        {posts.map((post) => (
-          <div key={post.id}>
-            <div><img src={post.user.avatar_url} alt='avatar' /></div>
-            <div>{post.user.username}</div>
-            <div>{getDate(post.created_at)}</div>
-            <div>{post.content}</div>
-            <div>{post.likes.length}</div>
-          </div>
-        ))}
+        {posts.map((post) => {
+          return (
+            <Post post={post} key={post.id}/>
+          )
+        })}
       </div>
-
-
-
-
-
     </section>
   )
 }
