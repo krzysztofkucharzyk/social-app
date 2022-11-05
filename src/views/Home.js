@@ -18,7 +18,9 @@ const Home = () => {
     getLatestPosts();
   }, [])
 
-
+  const getDate = (date) => {
+    return date.split(' ')[0]
+  }
 
   return (
     <section className='Home'>
@@ -27,7 +29,11 @@ const Home = () => {
       <div className='postList'>
         {posts.map((post) => (
           <div key={post.id}>
-            <p> {post.content}</p>
+            <div><img src={post.user.avatar_url} alt='avatar' /></div>
+            <div>{post.user.username}</div>
+            <div>{getDate(post.created_at)}</div>
+            <div>{post.content}</div>
+            <div>{post.likes.length}</div>
           </div>
         ))}
       </div>
