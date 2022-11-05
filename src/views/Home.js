@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import './Home.css'
 import Post from '../components/Post';
-// import { FiHeart } from 'react-icons/fi';
 
 const Home = () => {
 
