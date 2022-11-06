@@ -8,7 +8,7 @@ const Home = () => {
   const [posts, setPosts] = useState([]);
 
   const getLatestPosts = () => {
-    Axios.post('http://akademia108.pl/api/social-app/post/latest')
+    Axios.post('https://akademia108.pl/api/social-app/post/latest')
       .then(res => {
         console.log("Pobieranie danych", res.data)
         setPosts(res.data)
@@ -16,8 +16,15 @@ const Home = () => {
       .catch(error => console.log(error))
   }
 
+  const getNextPost = async () => {
+    Axios.post('https://akademia108.pl/api/social-app/post/older-then')
+    .then(res => console.log(res))
+    .catch(error => console.log(error))
+  }
+
   useEffect(() => {
     getLatestPosts();
+    getNextPost();
   }, [])
 
   return (
