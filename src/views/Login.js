@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Login.css'
 
 const Login = () => {
@@ -8,6 +8,8 @@ const Login = () => {
     username: "",
     password: "",
   });
+
+  const [loginMessage, setLoginMessage] = useState("");
 
   const handleInputChange = (e) => {
     const newdata = { ...data }
@@ -25,18 +27,20 @@ const Login = () => {
     // })
   }
 
+  useEffect(() => {
+    localStorage.setItem('data', JSON.stringify(data))
+  }, [data]);
+
   const onSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("username", JSON.stringify(data.username));
-    localStorage.setItem('password', JSON.stringify(data.password));
 
     axios.post('https://akademia108.pl/api/social-app/user/login', {
       username: data.username,
       password: data.password
     })
       .then(res => {
-        localStorage.getItem(res.data.username)
-        localStorage.getItem(res.data.username)
+        const savedData = JSON.parse(localStorage.getItem('data'))
+          setData(savedData);
 
         console.log("Zapisywanie danych do API", res.data)
       })
