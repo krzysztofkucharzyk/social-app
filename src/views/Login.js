@@ -39,10 +39,10 @@ const Login = () => {
       password: data.password
     })
       .then(res => {
-        const savedData = JSON.parse(localStorage.getItem('data'))
-          setData(savedData);
-
-        console.log("Zapisywanie danych do API", res.data)
+        // const savedData = JSON.parse(localStorage.getItem('data'))
+        //   setData(savedData);
+        setData(JSON.parse(localStorage.getItem('data')));
+        console.log("Zapisywanie danych do API", data)
       })
       .catch(error => {
         console.log(error)
