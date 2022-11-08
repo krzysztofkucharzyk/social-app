@@ -1,4 +1,5 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useState } from 'react';
 import './App.css';
 import AppNav from './components/AppNav';
 import AppRoutes from './routes/AppRoutes';
@@ -7,6 +8,12 @@ import AppRoutes from './routes/AppRoutes';
 // import SignUp from './views/SignUp';
 
 function App() {
+  const [user, setUser] = useState();
+
+  axios.defaults.headers.common["Authorization"] = 
+    "Bearer " + (user ? user.jwt_token : "")
+  axios.defaults.headers.post["Content-type"] = "application/json"
+
   return (
     <>
       <AppNav />
