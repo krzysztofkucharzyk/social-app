@@ -27,18 +27,17 @@ const Login = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("username", data.username);
-    localStorage.setItem('password', data.password);
+    localStorage.setItem("username", JSON.stringify(data.username));
+    localStorage.setItem('password', JSON.stringify(data.password));
 
     axios.post('https://akademia108.pl/api/social-app/user/login', {
       username: data.username,
       password: data.password
     })
       .then(res => {
-        setData({
-          username: localStorage.getItem('username'),
-          password: localStorage.getItem('password')
-        })
+        localStorage.getItem(res.data.username)
+        localStorage.getItem(res.data.username)
+
         console.log("Zapisywanie danych do API", res.data)
       })
       .catch(error => {
