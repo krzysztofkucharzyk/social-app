@@ -6,6 +6,7 @@ import Post from '../components/Post';
 const Home = () => {
 
   const [posts, setPosts] = useState([]);
+  const [user, setUser] = useState();
 
   const getLatestPosts = () => {
     axios.post('https://akademia108.pl/api/social-app/post/latest')
