@@ -42,7 +42,8 @@ const Login = () => {
         // const savedData = JSON.parse(localStorage.getItem('data'))
         //   setData(savedData);
         setData(JSON.parse(localStorage.getItem('data')));
-        console.log("Zapisywanie danych do API", data)
+        console.log("Zapisywanie danych do API", { data })
+        console.log(res)
       })
       .catch(error => {
         console.log(error)
