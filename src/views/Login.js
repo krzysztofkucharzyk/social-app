@@ -37,22 +37,13 @@ const Login = (props) => {
 
     let user = {
       username: data.username,
-      password: data.password,
-    }
-
-    axios.post('https://akademia108.pl/api/social-app/user/login',
-      // username: JSON.stringify(data.username),
-      // password: JSON.stringify(data.password)
-      JSON.stringify(user)
-    )
-      .then((res) => {
-        let resData = res.data;
-        console.log(resData)
-        // localStorage.setItem('data', JSON.stringify(data))
-        localStorage.setItem('user', JSON.stringify(resData))
-        console.log("Zapisywanie danych do API", resData)
-
-        // props.setUser(resData)
+      password: data.password
+    })
+      .then(res => {
+        // const savedData = JSON.parse(localStorage.getItem('data'))
+        //   setData(savedData);
+        setData(JSON.parse(localStorage.getItem('data')));
+        console.log("Zapisywanie danych do API", data)
       })
       .catch(error => {
         console.log(error)
