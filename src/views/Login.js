@@ -1,15 +1,16 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './Login.css'
 
-const Login = () => {
+const Login = (props) => {
 
+  const [loginMessage, setLoginMessage] = useState("");
   const [data, setData] = useState({
     username: "",
     password: "",
   });
 
-  const [loginMessage, setLoginMessage] = useState("");
+  
 
   const handleInputChange = (e) => {
     const newdata = { ...data }
@@ -27,22 +28,31 @@ const Login = () => {
     // })
   }
 
-  useEffect(() => {
-    localStorage.setItem('data', JSON.stringify(data))
-  }, [data]);
+  // useEffect(() => {
+  //   localStorage.setItem('data', JSON.stringify(data))
+  // }, [data]);
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('https://akademia108.pl/api/social-app/user/login', {
+    let user = {
       username: data.username,
-      password: data.password
-    })
-      .then(res => {
-        // const savedData = JSON.parse(localStorage.getItem('data'))
-        //   setData(savedData);
-        setData(JSON.parse(localStorage.getItem('data')));
-        console.log("Zapisywanie danych do API", data)
+      password: data.password,
+    }
+
+    axios.post('https://akademia108.pl/api/social-app/user/login',
+      // username: JSON.stringify(data.username),
+      // password: JSON.stringify(data.password)
+      JSON.stringify(user)
+    )
+      .then((res) => {
+        let resData = res.data;
+        console.log(resData)
+        // localStorage.setItem('data', JSON.stringify(data))
+        localStorage.setItem('user', JSON.stringify(resData))
+        console.log("Zapisywanie danych do API", resData)
+
+        // props.setUser(resData)
       })
       .catch(error => {
         console.log(error)

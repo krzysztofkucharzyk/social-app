@@ -8,11 +8,13 @@ import AppRoutes from './routes/AppRoutes';
 // import SignUp from './views/SignUp';
 
 function App() {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
 
   axios.defaults.headers.common["Authorization"] = 
     "Bearer " + (user ? user.jwt_token : "")
   axios.defaults.headers.post["Content-type"] = "application/json"
+
+console.log(user)
 
   return (
     <>
