@@ -4,12 +4,12 @@ import Home from '../views/Home'
 import Login from '../views/Login'
 import SignUp from '../views/SignUp'
 
-const AppRoutes = () => {
+const AppRoutes = (props) => {
   return (
     
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Login" element={<Login />} />
+        <Route path="/Login" element={<Login setUser={props.setUser}/>} />
         <Route path="/SignUp" element={<SignUp />} />
       </Routes>
     
