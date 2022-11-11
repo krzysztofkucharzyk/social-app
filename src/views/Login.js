@@ -37,7 +37,7 @@ const Login = (props) => {
 
     let user = {
       username: data.username,
-      password: data.password
+      password: data.password,
     })
       .then(res => {
         // const savedData = JSON.parse(localStorage.getItem('data'))
