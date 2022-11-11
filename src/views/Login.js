@@ -81,8 +81,8 @@ const Login = (props) => {
             <button>LOGIN</button>
           </div>
         </form>
-        {loginMessage}
       </div>
+      {loginMessage}
     </section>
   )
 }
