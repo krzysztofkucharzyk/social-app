@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react'
+import { Navigate } from 'react-router-dom';
 import './Login.css'
 
 const Login = (props) => {
@@ -9,8 +10,6 @@ const Login = (props) => {
     username: "",
     password: "",
   });
-
-
 
   const handleInputChange = (e) => {
     const newdata = { ...data }
@@ -51,7 +50,7 @@ const Login = (props) => {
         } else if (Array.isArray(resData.password)) {
           setLoginMessage(resData.password[0])
         } else if (resData.error) {
-          setLoginMessage("Incorrect username of password")
+          setLoginMessage("Incorrect username or password")
         } else {
           setLoginMessage('')
           localStorage.setItem('user', JSON.stringify(resData))
@@ -66,6 +65,7 @@ const Login = (props) => {
 
   return (
     <section className='Login'>
+      {props.user && <Navigate to="/" />}
       <div className="login-form">
         <form onSubmit={onSubmit}>
           <h1>Login</h1>
@@ -82,7 +82,9 @@ const Login = (props) => {
           </div>
         </form>
       </div>
-      {loginMessage}
+      <div className="error_msg">
+        {loginMessage}
+      </div>
     </section>
   )
 }

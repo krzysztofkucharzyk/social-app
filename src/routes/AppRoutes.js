@@ -9,7 +9,7 @@ const AppRoutes = (props) => {
     
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/Login" element={<Login setUser={props.setUser}/>} />
+        <Route path="/Login" element={<Login setUser={props.setUser} user={props.user}/>} />
         <Route path="/SignUp" element={<SignUp />} />
       </Routes>
     
