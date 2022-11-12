@@ -9,7 +9,6 @@ const handleLogout = () => {
   props.setUser('');
 }
 
-
   return (
     <>
       <header>
