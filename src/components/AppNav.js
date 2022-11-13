@@ -6,7 +6,7 @@ const AppNav = (props) => {
 
 const handleLogout = () => {
   localStorage.removeItem('user');
-  props.setUser('');
+  props.setUser();
 }
 
   return (
