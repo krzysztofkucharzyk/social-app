@@ -19,7 +19,7 @@ console.log(user)
   return (
     <>
       <AppNav user={user} setUser={setUser}/>
-      <AppRoutes setUser={setUser} user={user} />
+      <AppRoutes user={user} setUser={setUser} />
     </>
   );
 }

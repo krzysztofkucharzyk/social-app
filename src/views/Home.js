@@ -2,8 +2,9 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import './Home.css'
 import Post from '../components/Post';
+import AddPost from '../components/AddPost';
 
-const Home = () => {
+const Home = (props) => {
 
   const [posts, setPosts] = useState([]);
 
@@ -36,6 +37,9 @@ const Home = () => {
 
   return (
     <section className='Home'>
+      {props.user && (
+        <AddPost />
+      )}
       <div className='postList'>
         {posts.map((post) => {
           return (
