@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Post.css';
 import { FiHeart } from 'react-icons/fi';
-import axios from 'axios';
+// import axios from 'axios';
 
 const Post = (props) => {
 
   const [postContent, setPostContent] = useState('');
 
-  const addPost = () => {
+  // const addPost = () => {
 
-    axios.post('https://akademia108.pl/api/social-app/post/add', {
-      content: postContent,
-    })
-    .then(res => {
-      let resData = res.data;
-      console.log(resData)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-
-  }
-
+  //   axios.post('https://akademia108.pl/api/social-app/post/add', {
+  //     content: postContent,
+  //   })
+  //   .then(res => {
+  //     let resData = res.data;
+  //     console.log(resData)
+  //   })
+  //   .catch(error => {
+  //     console.log(error)
+  //   })
+  // }
 
   const getDate = (date) => {
     return date.slice(0, 10)
