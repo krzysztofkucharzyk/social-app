@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import './Post.css';
 import { FiHeart } from 'react-icons/fi';
 // import axios from 'axios';
@@ -14,6 +14,9 @@ const Post = (props) => {
   //   })
   //   .then(res => {
   //     let resData = res.data;
+  //     if(resData.message) {
+  //       setPostContent(postContent);
+  //     }
   //     console.log(resData)
   //   })
   //   .catch(error => {
