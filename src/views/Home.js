@@ -31,6 +31,21 @@ const Home = (props) => {
       })
   }
 
+  const getPrevPost = () => {
+    axios.post('https://akademia108.pl/api/social-app/post/newer-then', {
+      date: posts[0].created_at
+    })
+    .then(res => {
+      let resData = res.data;
+      setPosts([...resData, ...posts])
+      // setPosts(resData.concat(posts))
+      console.log("PObieranie danych newer-then", res.data)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
+
   useEffect(() => {
     getLatestPosts();
   }, [])
@@ -38,7 +53,7 @@ const Home = (props) => {
   return (
     <section className='Home'>
       {props.user && (
-        <AddPost />
+        <AddPost getPrevPost={getPrevPost}/>
       )}
       <div className='postList'>
         {posts.map((post) => {

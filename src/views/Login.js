@@ -1,10 +1,9 @@
-import axios from 'axios';
-import React, { useState } from 'react'
-import { Navigate } from 'react-router-dom';
-import './Login.css'
+import axios from "axios";
+import React, {useState} from "react";
+import {Navigate} from "react-router-dom";
+import "./Login.css";
 
 const Login = (props) => {
-
   const [loginMessage, setLoginMessage] = useState("");
   const [data, setData] = useState({
     username: "",
@@ -12,9 +11,9 @@ const Login = (props) => {
   });
 
   const handleInputChange = (e) => {
-    const newdata = { ...data }
-    newdata[e.target.name] = e.target.value
-    setData(newdata)
+    const newdata = {...data};
+    newdata[e.target.name] = e.target.value;
+    setData(newdata);
 
     // console.log(newdata)
 
@@ -25,7 +24,7 @@ const Login = (props) => {
     //   ...data,
     //   [name]: value
     // })
-  }
+  };
 
   // useEffect(() => {
   //   localStorage.setItem('data', JSON.stringify(data))
@@ -37,44 +36,56 @@ const Login = (props) => {
     let user = {
       username: data.username,
       password: data.password,
-    }
+    };
 
-    axios.post('https://akademia108.pl/api/social-app/user/login',
-      JSON.stringify(user)
-    )
-      .then(res => {
+    axios
+      .post(
+        "https://akademia108.pl/api/social-app/user/login",
+        JSON.stringify(user)
+      )
+      .then((res) => {
         let resData = res.data;
-        console.log(resData)
+        console.log(resData);
         if (Array.isArray(resData.username)) {
-          setLoginMessage(resData.username[0])
+          setLoginMessage(resData.username[0]);
         } else if (Array.isArray(resData.password)) {
-          setLoginMessage(resData.password[0])
+          setLoginMessage(resData.password[0]);
         } else if (resData.error) {
-          setLoginMessage("Incorrect username or password")
+          setLoginMessage("Incorrect username or password");
         } else {
-          setLoginMessage('')
-          localStorage.setItem('user', JSON.stringify(resData))
-          props.setUser(resData)
+          setLoginMessage("");
+          localStorage.setItem("user", JSON.stringify(resData));
+          props.setUser(resData);
         }
       })
-      .catch(error => {
-        console.log(error)
-      })
-  }
-
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
-    <section className='Login'>
+    <section className="Login">
       {props.user && <Navigate to="/" />}
       <div className="login-form">
         <form onSubmit={onSubmit}>
           <h1>Login</h1>
           <div className="content">
             <div className="input-field">
-              <input name='username' value={data["username"]} type="text" placeholder="Username" onChange={handleInputChange} />
+              <input
+                name="username"
+                value={data["username"]}
+                type="text"
+                placeholder="Username"
+                onChange={handleInputChange}
+              />
             </div>
             <div className="input-field">
-              <input name='password' type="password" placeholder="Password" onChange={handleInputChange} />
+              <input
+                name="password"
+                type="password"
+                placeholder="Password"
+                onChange={handleInputChange}
+              />
             </div>
           </div>
           <div className="action">
@@ -82,11 +93,9 @@ const Login = (props) => {
           </div>
         </form>
       </div>
-      <div className="error_msg">
-        {loginMessage}
-      </div>
+      <div className="error_msg">{loginMessage}</div>
     </section>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
