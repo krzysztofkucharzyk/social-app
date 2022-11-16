@@ -5,6 +5,7 @@ import "./Post.css";
 
 function AddPost(props) {
   const [postContent, setPostContent] = useState("");
+  const [message, setMessage] = useState("");
 
   const addPost = () => {
     axios
@@ -13,10 +14,20 @@ function AddPost(props) {
       })
       .then((res) => {
         let resData = res.data;
+        let postContent = resData.post.content;
+        console.log('resData:', resData);
+        console.log('post content:', postContent);
+
+        // if (postContent === '') {
+        //   setMessage('Post content cannot be empty');
+        // } else if ( resData.message ) {
+        //   setPostContent(postContent);
+        // }
+
+
         if (resData.message) {
           setPostContent(postContent);
         }
-        console.log(resData);
       })
       .catch((error) => {
         console.log(error);
@@ -39,11 +50,18 @@ function AddPost(props) {
             />
             <div className="action">
               {/* <button type="submit" onClick={addPost}> */}
-              <button type="submit" onClick={() => {addPost(); props.getPrevPost();}}>
+              <button
+                type="submit"
+                onClick={() => {
+                  addPost();
+                  props.getPrevPost();
+                }}
+              >
                 ADD POST
               </button>
             </div>
           </form>
+          <div className="error_msg">{message}</div>
         </div>
       </div>
     </div>
