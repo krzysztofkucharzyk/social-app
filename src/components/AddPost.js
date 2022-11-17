@@ -5,9 +5,16 @@ import "./Post.css";
 
 function AddPost(props) {
   const [postContent, setPostContent] = useState("");
+  const [isNoContent, setIsNoContent] = useState("");
 
   const addPost = (e) => {
     e.preventDefault();
+
+    if (!postContent) {
+      setIsNoContent("Post content cannot be empty");
+      return;
+    }
+
     axios
       .post("https://akademia108.pl/api/social-app/post/add", {
         content: postContent,
@@ -24,14 +31,11 @@ function AddPost(props) {
         //   setPostContent(postContent);
         // }
 
-        if (!postContent) {
-          return
-        }
-
         if (resData.message) {
           setPostContent(postContent);
           props.getPrevPost();
-          setPostContent('');
+          setPostContent("");
+          setIsNoContent("");
         }
       })
       .catch((error) => {
@@ -50,11 +54,10 @@ function AddPost(props) {
             />
             <div className="action">
               {/* <button type="submit" onClick={addPost}> */}
-              <button type="submit">
-                ADD POST
-              </button>
+              <button type="submit">ADD POST</button>
             </div>
           </form>
+          <div className="error_msg">{isNoContent}</div>
         </div>
       </div>
     </div>
