@@ -5,9 +5,16 @@ import "./Post.css";
 
 function AddPost(props) {
   const [postContent, setPostContent] = useState("");
-  const [message, setMessage] = useState("");
+  const [isNoContent, setIsNoContent] = useState("");
 
-  const addPost = () => {
+  const addPost = (e) => {
+    e.preventDefault();
+
+    if (!postContent) {
+      setIsNoContent("Post content cannot be empty");
+      return;
+    }
+
     axios
       .post("https://akademia108.pl/api/social-app/post/add", {
         content: postContent,
@@ -15,8 +22,8 @@ function AddPost(props) {
       .then((res) => {
         let resData = res.data;
         let postContent = resData.post.content;
-        console.log('resData:', resData);
-        console.log('post content:', postContent);
+        console.log("resData:", resData);
+        console.log("post content:", postContent);
 
         // if (postContent === '') {
         //   setMessage('Post content cannot be empty');
@@ -24,9 +31,11 @@ function AddPost(props) {
         //   setPostContent(postContent);
         // }
 
-
         if (resData.message) {
           setPostContent(postContent);
+          props.getPrevPost();
+          setPostContent("");
+          setIsNoContent("");
         }
       })
       .catch((error) => {
@@ -34,34 +43,21 @@ function AddPost(props) {
       });
   };
 
-  const handlePostContent = (e) => {
-    e.preventDefault();
-    console.log("postContent:", postContent);
-  };
-
   return (
     <div className="container">
       <div className="card">
         <div className="card_body">
-          <form onSubmit={handlePostContent}>
+          <form onSubmit={addPost}>
             <textarea
               value={postContent}
               onChange={(e) => setPostContent(e.target.value)}
             />
             <div className="action">
               {/* <button type="submit" onClick={addPost}> */}
-              <button
-                type="submit"
-                onClick={() => {
-                  addPost();
-                  props.getPrevPost();
-                }}
-              >
-                ADD POST
-              </button>
+              <button type="submit">ADD POST</button>
             </div>
           </form>
-          <div className="error_msg">{message}</div>
+          <div className="error_msg">{isNoContent}</div>
         </div>
       </div>
     </div>

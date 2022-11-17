@@ -51,13 +51,38 @@
     margin: 0;
 }
 
-.card_user_likes {
+.card_user_likes,
+.card_user_delete,
+.card_user_edit {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    flex-basis: 30%;
+    justify-content: center;
+    flex-basis: 10%;
 }
 
 .card_user_likes span {
     margin-left: 10px;
 }
+
+.card_user_likes .like,
+.card_user_delete .delete,
+.card_user_edit .edit {
+    font-size: 20px;
+}
+
+.card_user_likes .like:hover,
+.card_user_delete .delete:hover {
+    color: red;
+    cursor: pointer;
+}
+
+.card_user_edit .edit:hover {
+    cursor: pointer;
+}
+
+
+
+
+
+
+
