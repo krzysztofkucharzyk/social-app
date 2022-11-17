@@ -5,9 +5,9 @@ import "./Post.css";
 
 function AddPost(props) {
   const [postContent, setPostContent] = useState("");
-  const [message, setMessage] = useState("");
 
-  const addPost = () => {
+  const addPost = (e) => {
+    e.preventDefault();
     axios
       .post("https://akademia108.pl/api/social-app/post/add", {
         content: postContent,
@@ -24,9 +24,14 @@ function AddPost(props) {
         //   setPostContent(postContent);
         // }
 
+        if (!postContent) {
+          return
+        }
+
         if (resData.message) {
           setPostContent(postContent);
           props.getPrevPost();
+          setPostContent('');
         }
       })
       .catch((error) => {
@@ -34,28 +39,22 @@ function AddPost(props) {
       });
   };
 
-  const handlePostContent = (e) => {
-    e.preventDefault();
-    console.log("postContent:", postContent);
-  };
-
   return (
     <div className="container">
       <div className="card">
         <div className="card_body">
-          <form onSubmit={handlePostContent}>
+          <form onSubmit={addPost}>
             <textarea
               value={postContent}
               onChange={(e) => setPostContent(e.target.value)}
             />
             <div className="action">
               {/* <button type="submit" onClick={addPost}> */}
-              <button type="submit" onClick={addPost}>
+              <button type="submit">
                 ADD POST
               </button>
             </div>
           </form>
-          <div className="error_msg">{message}</div>
         </div>
       </div>
     </div>
