@@ -15,8 +15,8 @@ function AddPost(props) {
       .then((res) => {
         let resData = res.data;
         let postContent = resData.post.content;
-        console.log('resData:', resData);
-        console.log('post content:', postContent);
+        console.log("resData:", resData);
+        console.log("post content:", postContent);
 
         // if (postContent === '') {
         //   setMessage('Post content cannot be empty');
@@ -24,9 +24,9 @@ function AddPost(props) {
         //   setPostContent(postContent);
         // }
 
-
         if (resData.message) {
           setPostContent(postContent);
+          props.getPrevPost();
         }
       })
       .catch((error) => {
@@ -50,13 +50,7 @@ function AddPost(props) {
             />
             <div className="action">
               {/* <button type="submit" onClick={addPost}> */}
-              <button
-                type="submit"
-                onClick={() => {
-                  addPost();
-                  props.getPrevPost();
-                }}
-              >
+              <button type="submit" onClick={addPost}>
                 ADD POST
               </button>
             </div>
