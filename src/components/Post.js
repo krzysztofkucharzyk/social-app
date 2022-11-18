@@ -32,6 +32,10 @@ const Post = (props) => {
         if (resData.message) {
           setDeleteModalDisplay(alert(resData.message));
           props.getLatestPosts();
+        } else if (resData.errors) {
+          setDeleteModalDisplay(
+            alert("Invalid Operation. You have not sufficient permissions")
+          );
         }
       })
       .catch((error) => {
