@@ -25,12 +25,6 @@ function AddPost(props) {
         console.log("resData:", resData);
         console.log("post content:", postContent);
 
-        // if (postContent === '') {
-        //   setMessage('Post content cannot be empty');
-        // } else if ( resData.message ) {
-        //   setPostContent(postContent);
-        // }
-
         if (resData.message) {
           setPostContent(postContent);
           props.getPrevPost();

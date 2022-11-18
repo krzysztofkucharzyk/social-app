@@ -71,14 +71,11 @@
 }
 
 .card_user_likes .like:hover,
-.card_user_delete .delete:hover {
-    color: red;
-    cursor: pointer;
-}
-
+.card_user_delete .delete:hover,
 .card_user_edit .edit:hover {
     cursor: pointer;
 }
+
 
 
 

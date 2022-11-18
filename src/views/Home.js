@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import "./Home.css";
 import Post from "../components/Post";
@@ -54,10 +54,10 @@ const Home = (props) => {
 
   return (
     <section className="Home">
-      {props.user && <AddPost posts={posts} getPrevPost={getPrevPost} />}
+      {props.user && <AddPost posts={posts} getPrevPost={getPrevPost}  />}
       <div className="postList">
         {posts.map((post) => {
-          return <Post post={post} key={post.id} user={props.user}/>;
+          return <Post post={post} key={post.id} user={props.user} getLatestPosts={getLatestPosts}/>;
         })}
       </div>
       <button onClick={getNextPosts} type="button" className="button">
