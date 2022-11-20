@@ -2,7 +2,7 @@ import React from 'react'
 import "./Modal.css"
 
 
-const Modal = ({ closeModal, props }) => {
+const Modal = ({ closeModal, deletePost }) => {
   return (
     <div className="container">
       <div className="card">
@@ -12,7 +12,7 @@ const Modal = ({ closeModal, props }) => {
               ?</h2>
           </div>
           <div className='card_body_modal_buttons'>
-          <button onClick={() => props.deletePost()} className="button button_yes">YES</button>
+          <button onClick={deletePost} className="button button_yes">YES</button>
           <button onClick={() => closeModal(false)} className="button button_no">NO</button>
           </div>
         </div>
