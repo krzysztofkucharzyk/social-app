@@ -1,14 +1,15 @@
 import React from "react";
 import "./Post.css";
-import {RiDeleteBin7Fill, RiDeleteBin7Line} from "react-icons/ri";
+import { RiDeleteBin7Fill, RiDeleteBin7Line } from "react-icons/ri";
 import {
   AiFillEdit,
   AiOutlineEdit,
   AiFillHeart,
   AiOutlineHeart,
 } from "react-icons/ai";
-import {useState} from "react";
+import { useState } from "react";
 import axios from "axios";
+import Modal from "./Modal";
 
 const Post = (props) => {
   const [isHoverE, setIsHoverE] = useState(false);
@@ -30,13 +31,14 @@ const Post = (props) => {
         let resData = res.data;
         console.log("delete:", resData);
         if (resData.message) {
-          setDeleteModalDisplay(alert(resData.message));
+          // setDeleteModalDisplay(alert(resData.message));
           props.getLatestPosts();
-        } else if (resData.errors) {
-          setDeleteModalDisplay(
-            alert("Invalid Operation. You have not sufficient permissions")
-          );
         }
+        // else if (resData.errors) {
+        //   setDeleteModalDisplay(
+        //     alert("Invalid Operation. You have not sufficient permissions")
+        //   );
+        // }
       })
       .catch((error) => {
         console.log(error);
@@ -45,6 +47,7 @@ const Post = (props) => {
 
   return (
     <div className="container">
+      {deleteModalDisplay && <Modal closeModal={setDeleteModalDisplay} deletePost={deletePost} />}
       <div className="card">
         <div className="card_body">
           <p>{props.post.content}</p>
@@ -72,7 +75,8 @@ const Post = (props) => {
                 className="card_user_delete"
                 onMouseEnter={() => setIsHoverD(!isHoverD)}
                 onMouseLeave={() => setIsHoverD(!isHoverD)}
-                onClick={deletePost}
+                // onClick={deletePost}
+                onClick={() => { setDeleteModalDisplay(true) }}
               >
                 {isHoverD ? (
                   <RiDeleteBin7Fill className="delete" />

@@ -1,0 +1,30 @@
+.card_body_modal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px;
+    min-height: 250px;
+}
+
+.card_body_modal_title {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.card_body_modal_buttons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.button_yes {
+    background-color: #28b700;
+    color: #fff;
+}
+
+.button_no {
+    background-color: #b70000;
+    color: #fff;
+}
