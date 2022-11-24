@@ -43,7 +43,7 @@ const Post = (props) => {
 
   const unfollow = () => {
     axios.post('https://akademia108.pl/api/social-app/follows/disfollow', {
-      leader_id: props.recommendations.id
+      leader_id: props.post.user.id
     })
       .then((res) => {
         let resData = res.data;

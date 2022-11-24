@@ -83,7 +83,7 @@ const Home = (props) => {
       {props.user && <AddPost posts={posts} getPrevPost={getPrevPost} />}
       <div className="postList">
         {posts.map((post) => {
-          return <Post post={post} key={post.id} user={props.user} getLatestPosts={getLatestPosts} getRecommendations={getRecommendations} recommendations={recommendations}/>;
+          return <Post post={post} key={post.id} user={props.user} getLatestPosts={getLatestPosts} getRecommendations={getRecommendations} />;
         })}
       </div>
       <button onClick={getNextPosts} type="button" className="button">
