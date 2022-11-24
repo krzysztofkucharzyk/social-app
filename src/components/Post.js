@@ -1,6 +1,6 @@
 import React from "react";
 import "./Post.css";
-import { RiDeleteBin7Fill, RiDeleteBin7Line } from "react-icons/ri";
+import { RiDeleteBin7Fill, RiDeleteBin7Line, RiUserUnfollowFill, RiUserUnfollowLine } from "react-icons/ri";
 import {
   AiFillHeart,
   AiOutlineHeart,
@@ -10,6 +10,7 @@ import axios from "axios";
 import Modal from "./Modal";
 
 const Post = (props) => {
+  const [isHoverF, setIsHoverF] = useState(false);
   const [isHoverD, setIsHoverD] = useState(false);
   const [isHoverL, setIsHoverL] = useState(false);
 
@@ -32,13 +33,32 @@ const Post = (props) => {
           props.getLatestPosts();
         }
         else if (resData.errors) {
-            alert("Invalid Operation. You have not sufficient permissions")
+          alert("Invalid Operation. You have not sufficient permissions")
         }
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  const unfollow = () => {
+    axios.post('https://akademia108.pl/api/social-app/follows/disfollow', {
+      leader_id: props.recommendations.id
+    })
+      .then((res) => {
+        let resData = res.data;
+        console.log(resData);
+        if (resData.message) {
+          props.getRecommendations();
+          props.getLatestPosts();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
+  }
+
 
   return (
     <div className="container">
@@ -54,6 +74,20 @@ const Post = (props) => {
             </div>
             {props.user && (
               <div
+                className="card_user_unfollow"
+                onMouseEnter={() => setIsHoverF(!isHoverF)}
+                onMouseLeave={() => setIsHoverF(!isHoverF)}
+                onClick={unfollow}
+              >
+                {isHoverF ? (
+                  <RiUserUnfollowFill className="unfollow" title="unfollow" />
+                ) : (
+                  <RiUserUnfollowLine className="unfollow" title="unfollow" />
+                )}
+              </div>
+            )}
+            {props.user && (
+              <div
                 className="card_user_delete"
                 onMouseEnter={() => setIsHoverD(!isHoverD)}
                 onMouseLeave={() => setIsHoverD(!isHoverD)}
@@ -61,9 +95,9 @@ const Post = (props) => {
                 onClick={() => { setDeleteModalDisplay(true) }}
               >
                 {isHoverD ? (
-                  <RiDeleteBin7Fill className="delete" title="Delete"/>
+                  <RiDeleteBin7Fill className="delete" title="Delete" />
                 ) : (
-                  <RiDeleteBin7Line className="delete" title="Delete"/>
+                  <RiDeleteBin7Line className="delete" title="Delete" />
                 )}
               </div>
             )}
@@ -73,9 +107,9 @@ const Post = (props) => {
               onMouseLeave={() => setIsHoverL(!isHoverL)}
             >
               {isHoverL ? (
-                <AiFillHeart className="like" title="Like"/>
+                <AiFillHeart className="like" title="Like" />
               ) : (
-                <AiOutlineHeart className="like" title="Like"/>
+                <AiOutlineHeart className="like" title="Like" />
               )}
               <span>{props.post.likes.length}</span>
             </div>

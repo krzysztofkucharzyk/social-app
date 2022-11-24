@@ -53,7 +53,7 @@
 
 .card_user_likes,
 .card_user_delete,
-.card_user_edit {
+.card_user_unfollow {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -66,13 +66,13 @@
 
 .card_user_likes .like,
 .card_user_delete .delete,
-.card_user_edit .edit {
+.card_user_unfollow .unfollow {
     font-size: 20px;
 }
 
 .card_user_likes .like:hover,
 .card_user_delete .delete:hover,
-.card_user_edit .edit:hover {
+.card_user_unfollow .unfollow:hover {
     cursor: pointer;
 }
 

@@ -7,7 +7,7 @@ import FollowRecommendations from "../components/FollowRecommendations";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
-  const [recommendations, setRecommendations] = useState("");
+  const [recommendations, setRecommendations] = useState([]);
 
   const getLatestPosts = () => {
     axios
@@ -66,14 +66,24 @@ const Home = (props) => {
 
   return (
     <section className="Home">
-      {props.user && <FollowRecommendations recommendations={recommendations} getRecommendations={getRecommendations}/>}
-      <div className="follows">
-
-      </div>
+      {props.user && (
+        <div className="follows">
+          <div className="container">
+            <div className="card">
+              <div className="card_body">
+                {recommendations.map((rec) => {
+                  console.log(rec);
+                  return <FollowRecommendations key={rec.id} recommendations={rec} getRecommendations={getRecommendations} getLatestPosts={getLatestPosts}/>
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       {props.user && <AddPost posts={posts} getPrevPost={getPrevPost} />}
       <div className="postList">
         {posts.map((post) => {
-          return <Post post={post} key={post.id} user={props.user} getLatestPosts={getLatestPosts} />;
+          return <Post post={post} key={post.id} user={props.user} getLatestPosts={getLatestPosts} getRecommendations={getRecommendations} recommendations={recommendations}/>;
         })}
       </div>
       <button onClick={getNextPosts} type="button" className="button">
