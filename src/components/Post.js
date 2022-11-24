@@ -2,8 +2,6 @@ import React from "react";
 import "./Post.css";
 import { RiDeleteBin7Fill, RiDeleteBin7Line } from "react-icons/ri";
 import {
-  AiFillEdit,
-  AiOutlineEdit,
   AiFillHeart,
   AiOutlineHeart,
 } from "react-icons/ai";
@@ -12,7 +10,6 @@ import axios from "axios";
 import Modal from "./Modal";
 
 const Post = (props) => {
-  const [isHoverE, setIsHoverE] = useState(false);
   const [isHoverD, setIsHoverD] = useState(false);
   const [isHoverL, setIsHoverL] = useState(false);
 
@@ -34,11 +31,9 @@ const Post = (props) => {
           // setDeleteModalDisplay(alert(resData.message));
           props.getLatestPosts();
         }
-        // else if (resData.errors) {
-        //   setDeleteModalDisplay(
-        //     alert("Invalid Operation. You have not sufficient permissions")
-        //   );
-        // }
+        else if (resData.errors) {
+            alert("Invalid Operation. You have not sufficient permissions")
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -59,19 +54,6 @@ const Post = (props) => {
             </div>
             {props.user && (
               <div
-                className="card_user_edit"
-                onMouseEnter={() => setIsHoverE(!isHoverE)}
-                onMouseLeave={() => setIsHoverE(!isHoverE)}
-              >
-                {isHoverE ? (
-                  <AiFillEdit className="edit" />
-                ) : (
-                  <AiOutlineEdit className="edit" />
-                )}
-              </div>
-            )}
-            {props.user && (
-              <div
                 className="card_user_delete"
                 onMouseEnter={() => setIsHoverD(!isHoverD)}
                 onMouseLeave={() => setIsHoverD(!isHoverD)}
@@ -79,9 +61,9 @@ const Post = (props) => {
                 onClick={() => { setDeleteModalDisplay(true) }}
               >
                 {isHoverD ? (
-                  <RiDeleteBin7Fill className="delete" />
+                  <RiDeleteBin7Fill className="delete" title="Delete"/>
                 ) : (
-                  <RiDeleteBin7Line className="delete" />
+                  <RiDeleteBin7Line className="delete" title="Delete"/>
                 )}
               </div>
             )}
@@ -91,9 +73,9 @@ const Post = (props) => {
               onMouseLeave={() => setIsHoverL(!isHoverL)}
             >
               {isHoverL ? (
-                <AiFillHeart className="like" />
+                <AiFillHeart className="like" title="Like"/>
               ) : (
-                <AiOutlineHeart className="like" />
+                <AiOutlineHeart className="like" title="Like"/>
               )}
               <span>{props.post.likes.length}</span>
             </div>
