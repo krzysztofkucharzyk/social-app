@@ -34,6 +34,10 @@ const Post = (props) => {
         else if (resData.errors) {
             alert("Invalid Operation. You have not sufficient permissions")
         }
+        else if (resData.errors) {
+            alert("Invalid Operation. You have not sufficient permissions")
+            setDeleteModalDisplay(false)
+        }
       })
       .catch((error) => {
         console.log(error);
