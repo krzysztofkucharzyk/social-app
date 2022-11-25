@@ -12,6 +12,7 @@ const FollowRecommendations = (props) => {
         console.log(res.data);
         props.getLatestPosts();
         props.getRecommendations();
+        props.getFollowedUsers();
       })
       .catch((error) => {
         console.log(error);

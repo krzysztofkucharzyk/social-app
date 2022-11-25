@@ -77,7 +77,7 @@ const Post = (props) => {
                 className="card_user_unfollow"
                 onMouseEnter={() => setIsHoverF(!isHoverF)}
                 onMouseLeave={() => setIsHoverF(!isHoverF)}
-                onClick={unfollow}
+                onClick={() => {unfollow(); props.getFollowedUsers();}}
               >
                 {isHoverF ? (
                   <RiUserUnfollowFill className="unfollow" title="unfollow" />
