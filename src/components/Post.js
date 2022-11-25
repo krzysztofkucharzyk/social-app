@@ -59,7 +59,6 @@ const Post = (props) => {
 
   }
 
-
   return (
     <div className="container">
       {deleteModalDisplay && <Modal closeModal={setDeleteModalDisplay} deletePost={deletePost} />}
