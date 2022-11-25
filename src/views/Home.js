@@ -1,11 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./Home.css";
 import Post from "../components/Post";
 import AddPost from "../components/AddPost";
+import FollowRecommendations from "../components/FollowRecommendations";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
+  const [recommendations, setRecommendations] = useState([]);
 
   const getLatestPosts = () => {
     axios
@@ -48,16 +50,40 @@ const Home = (props) => {
       });
   };
 
+  const getRecommendations = () => {
+    axios.post('https://akademia108.pl/api/social-app/follows/recommendations')
+      .then((res) => {
+        console.log('follow:', res.data);
+        setRecommendations(res.data)
+      })
+      .catch((error) => console.log(error));
+  };
+
   useEffect(() => {
     getLatestPosts();
+    getRecommendations();
   }, []);
 
   return (
     <section className="Home">
-      {props.user && <AddPost posts={posts} getPrevPost={getPrevPost}  />}
+      {props.user && (
+        <div className="follows">
+          <div className="container">
+            <div className="card">
+              <div className="card_body">
+                {recommendations.map((rec) => {
+                  console.log(rec);
+                  return <FollowRecommendations key={rec.id} recommendations={rec} getRecommendations={getRecommendations} getLatestPosts={getLatestPosts}/>
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {props.user && <AddPost posts={posts} getPrevPost={getPrevPost} />}
       <div className="postList">
         {posts.map((post) => {
-          return <Post post={post} key={post.id} user={props.user} getLatestPosts={getLatestPosts}/>;
+          return <Post post={post} key={post.id} user={props.user} getLatestPosts={getLatestPosts} getRecommendations={getRecommendations} />;
         })}
       </div>
       <button onClick={getNextPosts} type="button" className="button">

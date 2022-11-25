@@ -1,0 +1,10 @@
+.follow {
+    background-color: green;
+    color: #fff;
+    padding: calc(0.875rem - 1px) calc(1rem - 1px);
+}
+
+.follow:hover {
+    background-color: #fff;
+    color: #000;
+}
