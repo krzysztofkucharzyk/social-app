@@ -4,11 +4,12 @@ import "./SignUp.css";
 
 // const username_regex = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}[^\s]*$/;
 // const username_regex = /^(?=.{3,20}$)(?![^\s])(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
-const email_regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/;
+const email_regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 // const password_regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!#@$%])(?=.{5,})$/;
 
 const SignUp = () => {
   const [signUpMessage, setSignUpMessage] = useState("");
+  const [signUpDone, setSignUpDone] = useState(false);
 
   const [data, setData] = useState({
     username: "",
@@ -29,7 +30,7 @@ const SignUp = () => {
   };
 
   const validate = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     let validateErrors = {
       username: false,
@@ -131,9 +132,24 @@ const SignUp = () => {
         return {...prevErrors, repassword: ""};
       });
     }
+
+ 
+    return (
+      !validateErrors.username &&
+      !validateErrors.email &&
+      !validateErrors.password &&
+      !validateErrors.repassword
+    );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // sprawdzenie walidacji czy udana czy nie
+    if (!validate()) {
+      return
+    }
+
     let newUser = {
       username: data.username,
       email: data.email,
@@ -147,7 +163,16 @@ const SignUp = () => {
       )
       .then((res) => {
         console.log(res.data);
-        let resData = res.data;
+
+        setSignUpMessage('Sign Up completed');
+        setSignUpDone(true);
+        setData({
+          username: "",
+          email: "",
+          password: "",
+          repassword: "",
+        })
+
       })
       .catch((error) => {
         console.log(error);
@@ -157,7 +182,7 @@ const SignUp = () => {
   return (
     <section className="SignUp">
       <div className="signup-form">
-        <form onSubmit={validate}>
+        <form onSubmit={handleSubmit}>
           <h1>Sign Up</h1>
           <div className="content">
             <div className="input-field">
@@ -166,6 +191,7 @@ const SignUp = () => {
                 value={data["username"]}
                 type="text"
                 placeholder="Username"
+                disabled={signUpDone}
                 onChange={handleInputChange}
               />
               <span>{errors.username}</span>
@@ -176,6 +202,7 @@ const SignUp = () => {
                 value={data["email"]}
                 type="text"
                 placeholder="Email"
+                disabled={signUpDone}
                 onChange={handleInputChange}
               />
               <span>{errors.email}</span>
@@ -183,8 +210,10 @@ const SignUp = () => {
             <div className="input-field">
               <input
                 name="password"
+                value={data["password"]}
                 type="text"
                 placeholder="Password"
+                disabled={signUpDone}
                 onChange={handleInputChange}
               />
               <span>{errors.password}</span>
@@ -192,15 +221,17 @@ const SignUp = () => {
             <div className="input-field">
               <input
                 name="repassword"
+                value={data["repassword"]}
                 type="password"
                 placeholder="Repeat password"
+                disabled={signUpDone}
                 onChange={handleInputChange}
               />
               <span>{errors.repassword}</span>
             </div>
           </div>
           <div className="action">
-            <button>SIGN UP</button>
+            <button disabled={signUpDone}>SIGN UP</button>
           </div>
         </form>
       </div>
