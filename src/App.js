@@ -14,7 +14,6 @@ function App() {
     "Bearer " + (user ? user.jwt_token : "")
   axios.defaults.headers.post["Content-type"] = "application/json"
 
-console.log(user)
 
   return (
     <>

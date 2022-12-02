@@ -18,8 +18,7 @@ const FollowRecommendations = (props) => {
         console.log(error);
       })
   }
-
-
+  
   return (
     <div className="card_user">
       <img src={props.recommendations.avatar_url} alt="avatar" />

@@ -1,11 +1,13 @@
 import React from "react";
 import "./Post.css";
-import { RiDeleteBin7Fill, RiDeleteBin7Line, RiUserUnfollowFill, RiUserUnfollowLine } from "react-icons/ri";
 import {
-  AiFillHeart,
-  AiOutlineHeart,
-} from "react-icons/ai";
-import { useState } from "react";
+  RiDeleteBin7Fill,
+  RiDeleteBin7Line,
+  RiUserUnfollowFill,
+  RiUserUnfollowLine,
+} from "react-icons/ri";
+import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
+import {useState} from "react";
 import axios from "axios";
 import Modal from "./Modal";
 
@@ -31,9 +33,8 @@ const Post = (props) => {
         if (resData.message) {
           // setDeleteModalDisplay(alert(resData.message));
           props.getLatestPosts();
-        }
-        else if (resData.errors) {
-          alert("Invalid Operation. You have not sufficient permissions")
+        } else if (resData.errors) {
+          alert("Invalid Operation. You have not sufficient permissions");
         }
       })
       .catch((error) => {
@@ -42,9 +43,10 @@ const Post = (props) => {
   };
 
   const unfollow = () => {
-    axios.post('https://akademia108.pl/api/social-app/follows/disfollow', {
-      leader_id: props.post.user.id
-    })
+    axios
+      .post("https://akademia108.pl/api/social-app/follows/disfollow", {
+        leader_id: props.post.user.id,
+      })
       .then((res) => {
         let resData = res.data;
         console.log(resData);
@@ -55,13 +57,14 @@ const Post = (props) => {
       })
       .catch((error) => {
         console.log(error);
-      })
-
-  }
+      });
+  };
 
   return (
     <div className="container">
-      {deleteModalDisplay && <Modal closeModal={setDeleteModalDisplay} deletePost={deletePost} />}
+      {deleteModalDisplay && (
+        <Modal closeModal={setDeleteModalDisplay} deletePost={deletePost} />
+      )}
       <div className="card">
         <div className="card_body">
           <p>{props.post.content}</p>
@@ -71,12 +74,15 @@ const Post = (props) => {
               <h1>{props.post.user.username}</h1>
               <small>{getDate(props.post.created_at)}</small>
             </div>
-            {props.user && (
+            {props.user && props.post.user.username !== props.user?.username && (
               <div
                 className="card_user_unfollow"
                 onMouseEnter={() => setIsHoverF(!isHoverF)}
                 onMouseLeave={() => setIsHoverF(!isHoverF)}
-                onClick={() => {unfollow(); props.getFollowedUsers();}}
+                onClick={() => {
+                  unfollow();
+                  props.getFollowedUsers();
+                }}
               >
                 {isHoverF ? (
                   <RiUserUnfollowFill className="unfollow" title="unfollow" />
@@ -85,13 +91,15 @@ const Post = (props) => {
                 )}
               </div>
             )}
-            {props.user && (
+            {props.user && props.post.user.username === props.user?.username && (
               <div
                 className="card_user_delete"
                 onMouseEnter={() => setIsHoverD(!isHoverD)}
                 onMouseLeave={() => setIsHoverD(!isHoverD)}
                 // onClick={deletePost}
-                onClick={() => { setDeleteModalDisplay(true) }}
+                onClick={() => {
+                  setDeleteModalDisplay(true);
+                }}
               >
                 {isHoverD ? (
                   <RiDeleteBin7Fill className="delete" title="Delete" />
