@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 
 const SignUp = (props) => {
 
-  
   const [signUpMessage, setSignUpMessage] = useState("");
   const [data, setData] = useState({
     username: "",
