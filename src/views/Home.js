@@ -90,7 +90,7 @@ const Home = (props) => {
 
   return (
     <section className="Home">
-      {props.user && (
+      {!props.user && (
         <Popup
           timePopup={timePopup}
           setTimePopup={setTimePopup}
