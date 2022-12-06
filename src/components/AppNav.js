@@ -19,6 +19,11 @@ const AppNav = (props) => {
       .catch((error) => console.log(error));
   };
 
+  const signOut = () => {
+    handleLogout();
+    props.setTimePopup(false);
+  };
+
   return (
     <>
       <header>
@@ -39,7 +44,7 @@ const AppNav = (props) => {
             )}
             {props.user && (
               <li>
-                <Link to="/" onClick={handleLogout}>
+                <Link to="/" onClick={signOut}>
                   Log Out
                 </Link>
               </li>
