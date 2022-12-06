@@ -1,16 +1,16 @@
 import React from 'react'
 import './Popup.css'
+import LoginForm from '../components/LoginForm';
+
 
 const Popup = (props) => {
 
   return (props.timePopup) ? (
-    <div>
-      <h2>Popup</h2>
-      <button className='btn-close' onClick={() => {props.setTimePopup(false)}}>close</button>
-
-    </div>
-  
+    <div className='popup'>
+      <LoginForm timePopup={props.timePopup} setTimePopup={props.setTimePopup} user={props.user} setUser={props.setUser}/>
+      </div>
   ) : "";
+
 }
 
 export default Popup

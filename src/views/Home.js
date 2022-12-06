@@ -84,13 +84,20 @@ const Home = (props) => {
 
   useEffect(() => {
     setTimeout(() => {
-      setTimePopup(true)
-    }, 5000)
-  },[])
+      setTimePopup(true);
+    }, 5000);
+  }, []);
 
   return (
     <section className="Home">
-      <Popup timePopup={timePopup} setTimePopup={setTimePopup}/>
+      {props.user && (
+        <Popup
+          timePopup={timePopup}
+          setTimePopup={setTimePopup}
+          user={props.user}
+          setUser={props.setUser}
+        />
+      )}
       {props.user && (
         <div className="follows">
           <div className="container">
@@ -120,7 +127,7 @@ const Home = (props) => {
         <div className="followed">
           <div className="container">
             <div className="card">
-              <div class="card_heading">
+              <div className="card_heading">
                 <h2>Users you follow</h2>
               </div>
               <div className="card_body">
