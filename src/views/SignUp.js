@@ -133,7 +133,6 @@ const SignUp = () => {
       });
     }
 
- 
     return (
       !validateErrors.username &&
       !validateErrors.email &&
@@ -147,7 +146,7 @@ const SignUp = () => {
 
     // sprawdzenie walidacji czy udana czy nie
     if (!validate()) {
-      return
+      return;
     }
 
     let newUser = {
@@ -164,15 +163,14 @@ const SignUp = () => {
       .then((res) => {
         console.log(res.data);
 
-        setSignUpMessage('Sign Up completed');
+        setSignUpMessage("Sign Up completed");
         setSignUpDone(true);
         setData({
           username: "",
           email: "",
           password: "",
           repassword: "",
-        })
-
+        });
       })
       .catch((error) => {
         console.log(error);
