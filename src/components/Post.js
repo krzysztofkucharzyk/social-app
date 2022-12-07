@@ -6,8 +6,8 @@ import {
   RiUserUnfollowFill,
   RiUserUnfollowLine,
 } from "react-icons/ri";
-import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
-import {useState} from "react";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { useState } from "react";
 import axios from "axios";
 import Modal from "./Modal";
 
@@ -17,6 +17,9 @@ const Post = (props) => {
   const [isHoverL, setIsHoverL] = useState(false);
 
   const [deleteModalDisplay, setDeleteModalDisplay] = useState(false);
+
+  const [likesCount, setLikesCount] = useState(props.post.likes.length);
+  const [doesUserLiked, setDoesUserLiked] = useState(props.post.likes.filter(like => like.username === props.user?.username).length !== 0);
 
   const getDate = (date) => {
     return date.slice(0, 10);
@@ -59,6 +62,25 @@ const Post = (props) => {
         console.log(error);
       });
   };
+
+  const likePost = (id, isLiked) => {
+    axios.post("https://akademia108.pl/api/social-app/post/" + (isLiked ? 'dislike' : 'like'), {
+      post_id: id,
+    })
+      .then((res) => {
+        console.log(res.data)
+        setLikesCount(likesCount + (isLiked ? -1 : 1));
+        setDoesUserLiked(!isLiked);
+        props.getLatestPosts();
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
+  // https://akademia108.pl/api/social-app/post/like
+  // https://akademia108.pl/api/social-app/post/dislike
+
 
   return (
     <div className="container">
@@ -112,8 +134,11 @@ const Post = (props) => {
               className="card_user_likes"
               onMouseEnter={() => setIsHoverL(!isHoverL)}
               onMouseLeave={() => setIsHoverL(!isHoverL)}
+              onClick={() => {
+                likePost(props.post.id, doesUserLiked);
+              }}
             >
-              {isHoverL ? (
+              {isHoverL || doesUserLiked ? (
                 <AiFillHeart className="like" title="Like" />
               ) : (
                 <AiOutlineHeart className="like" title="Like" />

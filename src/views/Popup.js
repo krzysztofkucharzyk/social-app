@@ -7,8 +7,8 @@ const Popup = (props) => {
   //if it's true popup will show
   return (props.timePopup) ? (
     <div className='popup'>
-      <LoginForm timePopup={props.timePopup} setTimePopup={props.setTimePopup} user={props.user} setUser={props.setUser}/>
-      </div>
+      <LoginForm timePopup={props.timePopup} setTimePopup={props.setTimePopup} user={props.user} setUser={props.setUser} />
+    </div>
   ) : "";
 
 }
