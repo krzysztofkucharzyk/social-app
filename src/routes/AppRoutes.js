@@ -9,7 +9,7 @@ const AppRoutes = (props) => {
     <Routes>
       <Route
         path="/"
-        element={<Home user={props.user} setUser={props.setUser} />} 
+        element={<Home user={props.user} setUser={props.setUser} timePopup={props.timePopup} setTimePopup={props.setTimePopup}/>} 
       />
       <Route
         path="/Login"

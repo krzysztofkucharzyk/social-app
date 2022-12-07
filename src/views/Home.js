@@ -5,7 +5,7 @@ import Post from "../components/Post";
 import AddPost from "../components/AddPost";
 import FollowRecommendations from "../components/FollowRecommendations";
 import FollowedUsers from "../components/FollowedUsers";
-
+import Popup from "./Popup";
 
 const Home = (props) => {
   const [posts, setPosts] = useState([]);
@@ -83,6 +83,14 @@ const Home = (props) => {
 
   return (
     <section className="Home">
+      {!props.user && (
+        <Popup
+          timePopup={props.timePopup}
+          setTimePopup={props.setTimePopup}
+          user={props.user}
+          setUser={props.setUser}
+        />
+      )}
       {props.user && (
         <div className="follows">
           <div className="container">
