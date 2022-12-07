@@ -79,18 +79,19 @@ const Home = (props) => {
     getLatestPosts();
     getRecommendations();
     getFollowedUsers();
-  }, []);
+  }, [props.user]);
 
   return (
     <section className="Home">
-      {!props.user && (
+      {!props.user && props.timePopup ? (
         <Popup
           timePopup={props.timePopup}
           setTimePopup={props.setTimePopup}
           user={props.user}
           setUser={props.setUser}
         />
-      )}
+      ) : ""
+    }
       {props.user && (
         <div className="follows">
           <div className="container">
