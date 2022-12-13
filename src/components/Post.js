@@ -45,10 +45,10 @@ const Post = (props) => {
       });
   };
 
-  const unfollow = () => {
+  const unfollow = (id) => {
     axios
       .post("https://akademia108.pl/api/social-app/follows/disfollow", {
-        leader_id: props.post.user.id,
+        leader_id: id,
       })
       .then((res) => {
         let resData = res.data;
@@ -102,7 +102,7 @@ const Post = (props) => {
                 onMouseEnter={() => setIsHoverF(!isHoverF)}
                 onMouseLeave={() => setIsHoverF(!isHoverF)}
                 onClick={() => {
-                  unfollow();
+                  unfollow(props.post.user.id);
                   props.getFollowedUsers();
                 }}
               >
